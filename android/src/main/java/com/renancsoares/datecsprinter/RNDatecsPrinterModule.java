@@ -152,8 +152,13 @@ public class RNDatecsPrinterModule extends ReactContextBaseJavaModule implements
 		try {
 			Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 			ArrayList list = new ArrayList();
-			for(BluetoothDevice device : pairedDevices){
-				list.add(device);
+			String d = "1.0.0";
+			for(BluetoothDevice device : pairedDevices) {
+                if (device.getName().contains("DPP-250")) {
+    				list.add(device);
+                } else {
+                    d += " " + device.getName();
+                }
 			}
 
 			//need to return list of paired devices
@@ -177,8 +182,6 @@ public class RNDatecsPrinterModule extends ReactContextBaseJavaModule implements
 				promise.reject("Erro: " + e.getMessage());
 				return;
 			}
-
-			// promise.resolve("BLUETOOTH CONNECTED");
 		}catch(Exception e){
 			promise.reject("Erro: " + e.getMessage());
 		}
@@ -193,7 +196,7 @@ public class RNDatecsPrinterModule extends ReactContextBaseJavaModule implements
 		mProtocolAdapter = new ProtocolAdapter(inputStream, outputStream);
 		if (mProtocolAdapter.isProtocolEnabled()) {
 			final ProtocolAdapter.Channel channel = mProtocolAdapter.getChannel(ProtocolAdapter.CHANNEL_PRINTER);
-			
+
 			// it was causing errors, need to be reviewed
             // channel.setListener(mChannelListener);
 
@@ -218,10 +221,11 @@ public class RNDatecsPrinterModule extends ReactContextBaseJavaModule implements
 				}
 			}).start();
 			mPrinter = new Printer(channel.getInputStream(), channel.getOutputStream());
+		    promise.resolve("PRINTER_INITIALIZED if");
 		} else {
 			mPrinter = new Printer(mProtocolAdapter.getRawInputStream(), mProtocolAdapter.getRawOutputStream());
+		    promise.resolve("PRINTER_INITIALIZED else");
 		}
-		promise.resolve("PRINTER_INITIALIZED");
 	}
 
 	/**
@@ -286,7 +290,7 @@ public class RNDatecsPrinterModule extends ReactContextBaseJavaModule implements
      */
 	@ReactMethod
 	public void printText(String text, Promise promise) {
-		String charset = "ISO-8859-1";
+		String charset = "CP1251";
 		try {
 			mPrinter.printTaggedText(text, charset);
 			mPrinter.flush();
