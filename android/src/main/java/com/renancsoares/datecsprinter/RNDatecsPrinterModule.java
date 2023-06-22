@@ -27,6 +27,11 @@ import com.datecs.api.printer.PrinterInformation;
 import com.datecs.api.printer.Printer;
 import com.datecs.api.printer.ProtocolAdapter;
 
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeArray;
+import com.facebook.react.bridge.WritableNativeMap;
+
 public class RNDatecsPrinterModule extends ReactContextBaseJavaModule implements LifecycleEventListener{
 
 	// Debugging
@@ -116,20 +121,28 @@ public class RNDatecsPrinterModule extends ReactContextBaseJavaModule implements
 	 * @param promise
 	 */
 	@ReactMethod
-	public void getPairedDevices(Promise promise){
-		Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-		// it might need to be an react.bridge.WritableArray
-		ArrayList list = new ArrayList();
-		for(BluetoothDevice device : pairedDevices){
-			list.add(device);
-		}
+	public void getPairedDevices(Promise promise) {
+    	Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+    	WritableArray array = new WritableNativeArray(); // Use WritableNativeArray instead of ArrayList
 
-		if(list.size() > 0){
-			promise.resolve(list);
-		}else{
-			promise.reject("Nenhum dispositivo pareado.");
-		}
-	}
+    	for (BluetoothDevice device : pairedDevices) {
+    	    // Add necessary information from the device to the array
+    	    WritableMap deviceMap = new WritableNativeMap();
+    	    deviceMap.putString("name", device.getName());
+    	    deviceMap.putString("address", device.getAddress());
+        	deviceMap.putString("bondState", String.valueOf(device.getBondState()));
+        	deviceMap.putString("type", String.valueOf(device.getType()));
+    	    // Add more properties as needed
+
+    	    array.pushMap(deviceMap);
+    	}
+
+    	if (array.size() > 0) {
+    	    promise.resolve(array);
+    	} else {
+    	    promise.reject("Nenhum dispositivo pareado.");
+    	}
+ 	}
 
 	/**
 	 * Get list of unpaired devices
