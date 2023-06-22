@@ -3922,7 +3922,7 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
 
 "react-native-cazh-datecs-printer@file:..":
-  version "1.0.1"
+  version "1.0.2"
 
 react-native@^0.47.0:
   version "0.47.2"
