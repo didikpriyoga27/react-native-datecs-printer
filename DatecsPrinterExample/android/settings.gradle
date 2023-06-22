@@ -1,5 +1,5 @@
 rootProject.name = 'DatecsPrinterExample'
-include ':react-native-datecs-printer'
-project(':react-native-datecs-printer').projectDir = new File(rootProject.projectDir, '../../android')
+include ':react-native-cazh-datecs-printer'
+project(':react-native-cazh-datecs-printer').projectDir = new File(rootProject.projectDir, '../../android')
 
 include ':app'

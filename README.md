@@ -1,29 +1,32 @@
-# react-native-datecs-printer
+# react-native-cazh-datecs-printer
 
 It only **works on Android**.
 
 ## As I made this project with a very short deadline, it's specific for the app that I was working on and it might not be suitable for you, although fell free to fork and modify it.
 
 #### Breaking Changes [RN v0.47.2](https://github.com/facebook/react-native/releases/tag/v0.47.2)
+
 Remove unused createJSModules calls.
 
-- if on RN < 0.47.2 `npm i react-native-datecs-printer@0.1.1`
-- if on RN > 0.47.2 `npm i react-native-datecs-printer`
+- if on RN < 0.47.2 `npm i react-native-cazh-datecs-printer@0.1.1`
+- if on RN > 0.47.2 `npm i react-native-cazh-datecs-printer`
 
 ### Printer used for tests
+
 DPP 250
 
 ---
 
 ## Getting started (latest version)
 
-`$ npm install react-native-datecs-printer --save`
+`$ npm install react-native-cazh-datecs-printer --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-datecs-printer`
+`$ react-native link react-native-cazh-datecs-printer`
 
 ### Add permissions in your AndroidManifest.xml
+
 ```
 <uses-permission android:name="android.permission.BLUETOOTH"/>
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
@@ -34,20 +37,24 @@ DPP 250
 #### Android
 
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
-  - Add `import com.renancsoares.datecsprinter.RNDatecsPrinterPackage;` to the imports at the top of the file
-  - Add `new RNDatecsPrinterPackage()` to the list returned by the `getPackages()` method
+
+- Add `import com.renancsoares.datecsprinter.RNDatecsPrinterPackage;` to the imports at the top of the file
+- Add `new RNDatecsPrinterPackage()` to the list returned by the `getPackages()` method
+
 2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':react-native-datecs-printer'
-  	project(':react-native-datecs-printer').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-datecs-printer/android')
-  	```
+   ```
+   include ':react-native-cazh-datecs-printer'
+   project(':react-native-cazh-datecs-printer').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-cazh-datecs-printer/android')
+   ```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-  	```
-      compile project(':react-native-datecs-printer')
-  	```
+   ```
+     compile project(':react-native-cazh-datecs-printer')
+   ```
 
 ### Examples of methods in your application.
+
 **It's also provided in the application example**
+
 ```
 connect(){
 	DatecsPrinter.connect()
@@ -107,14 +114,15 @@ disconnect(){
 ```
 
 ### Tags definition
-- `{reset}`	    Reset to default settings.
-- `{br}`	    Line break. Equivalent of new line.
-- `{b}, {/b}`	Set or clear bold font style.
-- `{u}, {/u}`	Set or clear underline font style.
-- `{i}, {/i}`	Set or clear italic font style.
-- `{s}, {/s}`	Set or clear small font style.
-- `{h}, {/h}`	Set or clear high font style.
-- `{w}, {/w}`	Set or clear wide font style.
-- `{left}`	    Aligns text to the left paper edge.
-- `{center}`	Aligns text to the center of paper.
-- `{right}`	    Aligns text to the right paper edge.
+
+- `{reset}` Reset to default settings.
+- `{br}` Line break. Equivalent of new line.
+- `{b}, {/b}` Set or clear bold font style.
+- `{u}, {/u}` Set or clear underline font style.
+- `{i}, {/i}` Set or clear italic font style.
+- `{s}, {/s}` Set or clear small font style.
+- `{h}, {/h}` Set or clear high font style.
+- `{w}, {/w}` Set or clear wide font style.
+- `{left}` Aligns text to the left paper edge.
+- `{center}` Aligns text to the center of paper.
+- `{right}` Aligns text to the right paper edge.
